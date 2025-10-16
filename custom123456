@@ -1,0 +1,112 @@
+
+Action: file_editor str_replace /app/frontend/src/pages/Dashboard.jsx --old-str "        {/* Edit Link Dialog */}
+        <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Edit Link</DialogTitle>
+              <DialogDescription>
+                Update the original URL for your short link
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleEditSubmit}>
+              <div className=\"space-y-4 py-4\">
+                <div className=\"space-y-2\">
+                  <Label htmlFor=\"edit-url\">Original URL</Label>
+                  <Input
+                    id=\"edit-url\"
+                    type=\"url\"
+                    placeholder=\"https://example.com/new-url\"
+                    value={editUrl}
+                    onChange={(e) => setEditUrl(e.target.value)}
+                    required
+                    className=\"transition-all\"
+                  />
+                </div>
+                <div className=\"text-sm text-gray-600\">
+                  <strong>Short code:</strong> <code className=\"bg-gray-100 px-2 py-1 rounded\">/{editingLink?.shortCode}</code>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button
+                  type=\"button\"
+                  variant=\"outline\"
+                  onClick={handleEditCancel}
+                  disabled={editLoading}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type=\"submit\"
+                  className=\"bg-gray-900 hover:bg-gray-800 transition-colors\"
+                  disabled={editLoading}
+                >
+                  {editLoading ? 'Updating...' : 'Update Link'}
+                </Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>" --new-str "        {/* Edit Link Dialog */}
+        <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Edit Link</DialogTitle>
+              <DialogDescription>
+                Update the original URL and short code for your link
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleEditSubmit}>
+              <div className=\"space-y-4 py-4\">
+                <div className=\"space-y-2\">
+                  <Label htmlFor=\"edit-url\">Original URL</Label>
+                  <Input
+                    id=\"edit-url\"
+                    type=\"url\"
+                    placeholder=\"https://example.com/new-url\"
+                    value={editUrl}
+                    onChange={(e) => setEditUrl(e.target.value)}
+                    required
+                    className=\"transition-all\"
+                  />
+                </div>
+                <div className=\"space-y-2\">
+                  <Label htmlFor=\"edit-shortcode\">Short Code</Label>
+                  <div className=\"flex items-center space-x-2\">
+                    <span className=\"text-gray-600\">/</span>
+                    <Input
+                      id=\"edit-shortcode\"
+                      type=\"text\"
+                      placeholder=\"mylink\"
+                      value={editShortCode}
+                      onChange={(e) => setEditShortCode(e.target.value)}
+                      required
+                      minLength={3}
+                      pattern=\"[a-zA-Z0-9_-]+\"
+                      className=\"transition-all flex-1\"
+                    />
+                  </div>
+                  <p className=\"text-xs text-gray-500\">
+                    At least 3 characters. Only letters, numbers, hyphens, and underscores.
+                  </p>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button
+                  type=\"button\"
+                  variant=\"outline\"
+                  onClick={handleEditCancel}
+                  disabled={editLoading}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type=\"submit\"
+                  className=\"bg-gray-900 hover:bg-gray-800 transition-colors\"
+                  disabled={editLoading}
+                >
+                  {editLoading ? 'Updating...' : 'Update Link'}
+                </Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>"
+Observation: Edit was successful.
