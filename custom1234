@@ -1,0 +1,12 @@
+
+Action: file_editor str_replace /app/frontend/src/pages/Dashboard.jsx --old-str "  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editingLink, setEditingLink] = useState(null);
+  const [editUrl, setEditUrl] = useState('');
+  const [editLoading, setEditLoading] = useState(false);
+  const { toast } = useToast();" --new-str "  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editingLink, setEditingLink] = useState(null);
+  const [editUrl, setEditUrl] = useState('');
+  const [editShortCode, setEditShortCode] = useState('');
+  const [editLoading, setEditLoading] = useState(false);
+  const { toast } = useToast();"
+Observation: Edit was successful.
