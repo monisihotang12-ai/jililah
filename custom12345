@@ -1,0 +1,122 @@
+
+Action: file_editor str_replace /app/frontend/src/pages/Dashboard.jsx --old-str "  const handleEditClick = (link) => {
+    setEditingLink(link);
+    setEditUrl(link.originalUrl);
+    setEditDialogOpen(true);
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Basic URL validation
+    try {
+      new URL(editUrl);
+    } catch {
+      toast({
+        title: \"Error\",
+        description: \"Please enter a valid URL\",
+        variant: \"destructive\",
+      });
+      return;
+    }
+
+    setEditLoading(true);
+
+    try {
+      const updatedLink = await mockAPI.editLink(editingLink.id, editUrl);
+      setLinks(links.map(link => link.id === updatedLink.id ? updatedLink : link));
+      setEditDialogOpen(false);
+      setEditingLink(null);
+      setEditUrl('');
+      toast({
+        title: \"Success\",
+        description: \"Link updated successfully\",
+      });
+    } catch (error) {
+      toast({
+        title: \"Error\",
+        description: \"Failed to update link\",
+        variant: \"destructive\",
+      });
+    } finally {
+      setEditLoading(false);
+    }
+  };
+
+  const handleEditCancel = () => {
+    setEditDialogOpen(false);
+    setEditingLink(null);
+    setEditUrl('');
+  };" --new-str "  const handleEditClick = (link) => {
+    setEditingLink(link);
+    setEditUrl(link.originalUrl);
+    setEditShortCode(link.shortCode);
+    setEditDialogOpen(true);
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Basic URL validation
+    try {
+      new URL(editUrl);
+    } catch {
+      toast({
+        title: \"Error\",
+        description: \"Please enter a valid URL\",
+        variant: \"destructive\",
+      });
+      return;
+    }
+
+    // Validate short code
+    if (!editShortCode || editShortCode.trim().length < 3) {
+      toast({
+        title: \"Error\",
+        description: \"Short code must be at least 3 characters\",
+        variant: \"destructive\",
+      });
+      return;
+    }
+
+    // Check for special characters
+    if (!/^[a-zA-Z0-9_-]+$/.test(editShortCode)) {
+      toast({
+        title: \"Error\",
+        description: \"Short code can only contain letters, numbers, hyphens, and underscores\",
+        variant: \"destructive\",
+      });
+      return;
+    }
+
+    setEditLoading(true);
+
+    try {
+      const updatedLink = await mockAPI.editLink(editingLink.id, editUrl, editShortCode);
+      setLinks(links.map(link => link.id === updatedLink.id ? updatedLink : link));
+      setEditDialogOpen(false);
+      setEditingLink(null);
+      setEditUrl('');
+      setEditShortCode('');
+      toast({
+        title: \"Success\",
+        description: \"Link updated successfully\",
+      });
+    } catch (error) {
+      toast({
+        title: \"Error\",
+        description: error.message || \"Failed to update link\",
+        variant: \"destructive\",
+      });
+    } finally {
+      setEditLoading(false);
+    }
+  };
+
+  const handleEditCancel = () => {
+    setEditDialogOpen(false);
+    setEditingLink(null);
+    setEditUrl('');
+    setEditShortCode('');
+  };"
+Observation: Edit was successful.
