@@ -1,0 +1,38 @@
+I'll add the ability to edit the short code as well. Let me update the mock API and Dashboard:
+Action: file_editor str_replace /app/frontend/src/utils/mock.js --old-str "  editLink: (linkId, newUrl) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const index = mockLinks.findIndex(link => link.id === linkId);
+        if (index > -1) {
+          mockLinks[index].originalUrl = newUrl;
+          resolve(mockLinks[index]);
+        } else {
+          reject(new Error('Link not found'));
+        }
+      }, 300);
+    });
+  }" --new-str "  editLink: (linkId, newUrl, newShortCode) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const index = mockLinks.findIndex(link => link.id === linkId);
+        if (index > -1) {
+          // Check if new short code already exists (excluding current link)
+          if (newShortCode) {
+            const existingLink = mockLinks.find(link => 
+              link.shortCode === newShortCode && link.id !== linkId
+            );
+            if (existingLink) {
+              reject(new Error('Short code already exists'));
+              return;
+            }
+            mockLinks[index].shortCode = newShortCode;
+          }
+          mockLinks[index].originalUrl = newUrl;
+          resolve(mockLinks[index]);
+        } else {
+          reject(new Error('Link not found'));
+        }
+      }, 300);
+    });
+  }"
+Observation: Edit was successful.
